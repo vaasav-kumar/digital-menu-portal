@@ -1,0 +1,25 @@
+@import './themes.scss';
+
+.menu-list {
+  margin-left: 15px;
+
+  .category {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h5 {
+      font-weight: 600;
+      font-size: 15px;
+      margin: 5px 0 !important;
+      color: $secondary;
+    }
+  }
+
+  .items {
+    display: grid;
+    grid-template-columns: auto 60px 30px 100px;
+    align-items: center;
+    gap: 15px;
+  }
+}

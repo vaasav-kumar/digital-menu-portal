@@ -1,0 +1,22 @@
+@import './themes.scss';
+
+.public-inputs {
+  background: $white;
+  padding: 10%;
+  border-radius: 25px;
+
+  u {
+    cursor: pointer;
+    display: block;
+    color: #1763ec;
+    font-weight: 500;
+    font-size: 15px;
+    margin-top: 15px;
+  }
+}
+
+.mobile, .tablet {
+  .public-inputs {
+    width: 300px;
+  }
+}

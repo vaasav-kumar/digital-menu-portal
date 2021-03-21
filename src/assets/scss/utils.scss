@@ -1,0 +1,32 @@
+@import './themes.scss';
+
+.md-checkbox {
+  margin: 5px 0;
+
+  .md-checkbox-container {
+    border-radius: 10px;
+  }
+
+  &.md-checked {
+    .md-checkbox-container {
+      background-color: $primary !important;
+      border-color: $primary !important;
+    }
+  }
+}
+
+.md-field {
+  &.md-focused {
+    &::before {
+      background-color: $primary !important;
+    }
+
+    label {
+      color: $primary !important;
+    }
+
+    .md-input {
+      color: $primary !important;
+    }
+  }
+}
