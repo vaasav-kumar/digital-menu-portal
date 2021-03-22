@@ -2,7 +2,7 @@
   <div class="menu-items">
     <div class="head">
       <h6>Menu Items</h6>
-      <div class="actions">
+      <div class="actions" v-if="menus.length">
         <button class="primary-btn" @click="save" v-if="edit">
           <i class="fa fa-save" />
           Save

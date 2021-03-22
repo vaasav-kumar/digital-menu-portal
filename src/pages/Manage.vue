@@ -99,6 +99,7 @@ export default {
         category: this.newCategory,
         items: []
       })
+      this.save()
     }
   }
 }
