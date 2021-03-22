@@ -56,7 +56,7 @@ export default {
     save () {
       this.loader = true
       this.$db.collection('restaurant').doc(this.uid).set({
-        list: this.menus
+        items: this.menus
       }, {merge: true}).then(response => {
         this.edit = !this.edit
         this.loader = false

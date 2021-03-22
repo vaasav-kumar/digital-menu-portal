@@ -7,7 +7,7 @@
     border-radius: 10px;
   }
 
-  &.md-checked {
+  &.md-checked:not(.md-disabled) {
     .md-checkbox-container {
       background-color: $primary !important;
       border-color: $primary !important;
