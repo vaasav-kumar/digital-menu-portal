@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'Signup',
   data () {
@@ -35,16 +37,20 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['SET_TOAST_MSG']),
     signup () {
       this.$analytics.logEvent('signup', {email: this.email})
       this.$auth.createUserWithEmailAndPassword(this.email, this.password).then(response => {
         this.$db.collection('restaurant').doc(response.user.uid).set({
           info: {
             name: this.restaurant
-          }
+          },
+          items: []
         })
         localStorage.setItem('user_id', response.user.uid)
         this.$router.push({name: 'Home'})
+      }, error => {
+        this.SET_TOAST_MSG(error.message)
       })
     }
   }

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import VueMq from 'vue-mq'
+import store from '@/store'
 import { MdField, MdButton, MdRadio, MdCheckbox } from 'vue-material/dist/components'
 
 import 'vue-material/dist/vue-material.min.css'
@@ -49,6 +50,7 @@ Vue.use(MdCheckbox)
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

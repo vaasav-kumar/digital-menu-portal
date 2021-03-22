@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'Login',
   data () {
@@ -29,11 +31,14 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['SET_TOAST_MSG']),
     login () {
       this.$analytics.logEvent('login', {email: this.email})
       this.$auth.signInWithEmailAndPassword(this.email, this.password).then(response => {
         localStorage.setItem('user_id', response.user.uid)
         this.$router.push({name: 'Home'})
+      }, error => {
+        this.SET_TOAST_MSG(error.message)
       })
     }
   }

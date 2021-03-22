@@ -46,7 +46,10 @@ export default {
       this.loader = true
       this.$db.collection('restaurant').doc(this.uid).get()
         .then(response => {
-          this.menus = response.data().items || []
+          const data = response.data()
+          if (data) {
+            this.menus = response.data().items || []
+          }
           this.loader = false
         })
     },

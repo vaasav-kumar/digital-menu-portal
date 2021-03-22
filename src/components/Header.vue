@@ -70,7 +70,7 @@ export default {
   },
   mounted () {
     this.uid = localStorage.getItem('user_id')
-    this.$db.collection('restaurant').doc(this.uid).get().then(response => {
+    this.$db.collection('restaurant').doc(this.uid).onSnapshot(response => {
       this.restaurant = response.data().info.name
     })
     this.$analytics.setUserProperties({id: this.uid})
