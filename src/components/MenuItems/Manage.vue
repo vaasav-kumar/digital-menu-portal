@@ -34,7 +34,7 @@
           </md-field>
           <md-field class="field">
             <label>Price</label>
-            <md-input v-model="menu.new.price" />
+            <md-input v-model="menu.new.price" @keypress="allowAmountFormat($event, menu.new.price)" />
           </md-field>
         </div>
       </div>
@@ -44,7 +44,7 @@
           <md-input v-model="menu.name" />
         </md-field>
         <md-field v-if="edit" class="field">
-          <md-input v-model="menu.price" />
+          <md-input v-model="menu.price" @keypress="allowAmountFormat($event, menu.price)" />
         </md-field>
         <button v-if="edit" @click="removeItem(index)" class="btn2">
           Delete
@@ -82,6 +82,16 @@ export default {
     },
     removeItem (index) {
       this.menus.splice(index, 1)
+    },
+    allowAmountFormat ($event, amount) {
+      if (!amount) {
+        amount = ''
+      }
+      const pos = $event.target.selectionStart
+      amount = amount.slice(0, pos) + $event.key + amount.slice(pos)
+      if (!(/^[0-9]{0,8}(\.[0-9]{0,2})?$/).test(amount)) {
+        $event.preventDefault()
+      }
     }
   }
 }
@@ -113,8 +123,22 @@ export default {
     grid-template-columns: auto 200px $btn-width !important;
   }
 
-  .field {
+  .md-field {
     max-width: 200px;
     margin: 2px 0 !important;
+  }
+
+  .mobile, .tablet {
+    .items {
+      grid-template-columns: auto 100px $btn-width !important;
+    }
+
+    .md-field {
+      max-width: 100px !important;
+
+      .md-input {
+        width: inherit !important;
+      }
+    }
   }
 </style>

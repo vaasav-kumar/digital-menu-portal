@@ -96,20 +96,22 @@ export default {
     }
   }
 
-  // .mobile, .tablet {
-  //   .popup {
-  //     @include custom-flex();
-  //   }
+  .mobile, .tablet {
+    .popup {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-  //   .popup-box {
-  //     width: 90%;
+    .popup-box {
+      width: 80%;
 
-  //     .title {
-  //       font-size: 16px;
-  //       font-weight: 500;
-  //     }
-  //   }
-  // }
+      .title {
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+  }
 
   .fade-enter-active, .fade-leave-active {
     transition: .5s;

@@ -27,7 +27,7 @@ export default {
       padding: 10px;
       justify-content: space-between;
       display: grid;
-      grid-template-columns: repeat(2, 200px);
+      grid-template-columns: repeat(2, 50%);
       grid-gap: 10px;
 
       p {

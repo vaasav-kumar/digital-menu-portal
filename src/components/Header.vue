@@ -2,8 +2,18 @@
   <div class="header">
     <popup v-if="showQR" @closePopup="showQR = false"
         :title="'Show QR'">
-      <qr-code :value="showQR" :size="200" level="M"
-          class="qr-code" />
+      <div class="print-qr">
+        <div class="title">
+          <img src="@/assets/images/logo2.png" />
+          <p>{{restaurant}}</p>
+        </div>
+
+        <qr-code :value="showQR" :size="200" level="M" />
+      </div>
+
+      <div class="download">
+        <button class="secondary-btn" @click="downloadQR">Download QR</button>
+      </div>
     </popup>
 
     <ul>
@@ -17,12 +27,24 @@
         {{menu.title}}
       </li>
     </ul>
+
+    <div class="print-qr" id="PrintQR" style="display: none;">
+      <div class="title">
+        <img src="@/assets/images/logo2.png" />
+        <p>{{restaurant}}</p>
+      </div>
+
+      <qr-code :value="showQR || ''" :size="200" level="M" />
+    </div>
   </div>
 </template>
 
 <script>
 import Popup from '@/components/Popup'
 import QrCode from 'qrcode.vue'
+
+import html2canvas from 'html2canvas'
+import JsPDF from 'jspdf'
 
 export default {
   name: 'Header',
@@ -91,6 +113,17 @@ export default {
         localStorage.removeItem('user_id')
         this.$router.push({name: 'Login'})
       })
+    },
+    downloadQR () {
+      const downloadElement = document.getElementById('PrintQR')
+      downloadElement.style.display = 'block'
+      html2canvas(downloadElement, {scale: 2, logging: false, dpi: 800, removeContainer: true, useCORS: true}).then((canvas) => {
+        downloadElement.style.display = 'none'
+        let base64image = canvas.toDataURL('image/jpeg', 1)
+        let doc = new JsPDF({unit: 'cm', orientation: 'portrait'})
+        doc.addImage(base64image, 'PNG', 2, 2)
+        doc.save(`${this.restaurant}-QR.pdf`)
+      })
     }
   }
 }
@@ -98,6 +131,16 @@ export default {
 
 <style scoped lang="scss">
   @import '../assets/scss/themes.scss';
+
+  .res-name {
+    font-weight: 700;
+    color: $primary;
+    background: -webkit-linear-gradient(45deg, $primary, $secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    word-break: break-all;
+  }
 
   .header {
     width: 100%;
@@ -117,13 +160,7 @@ export default {
       padding: 0;
 
       p {
-        font-weight: 700;
-        color: $primary;
-        background: -webkit-linear-gradient(45deg, $primary, $secondary);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-transform: uppercase;
-        word-break: break-all;
+        @extend.res-name;
       }
 
       li {
@@ -139,8 +176,31 @@ export default {
     }
   }
 
-  .qr-code {
+  .print-qr {
+    padding: 15px;
+    border-radius: 15px;
+    border: $grey-light 2px solid;
+    width: 300px;
     text-align: center;
+    margin: auto;
+    position: relative;
+    background: $white;
+
+    .title {
+      p {
+        @extend .res-name;
+        color: $white !important;
+        margin: 10px 0 15px;
+      }
+    }
+  }
+
+  .download {
+    text-align: center;
+
+    button {
+      margin: 15px 0;
+    }
   }
 
   .desktop {
@@ -172,13 +232,18 @@ export default {
       ul {
         p {
           margin: 0 5px;
+          font-size: 13px;
         }
 
         li {
-          font-size: 14px;
-          padding: 0 8px;
+          font-size: 13px;
+          padding: 0 5px !important;
         }
       }
+    }
+
+    .print-qr {
+      width: 250px !important;
     }
   }
 </style>

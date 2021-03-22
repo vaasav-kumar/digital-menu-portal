@@ -5,11 +5,11 @@
         <h5>{{menu.category}}</h5>
       </div>
 
-      <list-items v-if="menu.category" :menus="menu.items" />
+      <list-items v-if="menu.category" :menus="menu.items" :edit="edit" />
       <div v-else class="items">
         <span>{{menu.name}}</span>
         <span>{{amountFormat(menu.price)}}</span>
-        <md-checkbox v-model="menu.available" :disabled="edit" />
+        <md-checkbox v-model="menu.available" :disabled="!edit" />
         <i v-if="menu.available">Available</i>
         <i v-else>Not Available</i>
       </div>

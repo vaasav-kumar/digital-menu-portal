@@ -15,7 +15,7 @@
     </div>
 
     <list-items :menus="menus" :edit="edit" />
-    <loader v-if="loader" />
+    <loader v-if="loader && menus.length === 0" />
     <div class="empty" v-else-if="menus.length === 0">
       <p>No menu items found</p>
     </div>
